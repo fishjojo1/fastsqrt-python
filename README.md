@@ -13,11 +13,15 @@ Newton's approximation function is as follows: newGuess = 0.5 * (prevGuess + (N 
 It might look a tad complex at first glance, but there really isn't much magic going on.
 
 Dissecting the function, we have
+
 > prevGuess + (N / prevGuess) 
 
 Afterwhich, the resultant value is halved
+
 To hopefully try to allow one to see the light, say that prevGuess is right on point, eg. N = 100, prevguess = 10
+
 the function would then be as follows, 0.5 * (10 + (100/10) = 10
+
 starting to see how it works now?
 
 Should the guessed root be *lower* than the actual root, N/prevGuess would be a number *higher* than the previously guessed root AND the actual root, and thus the average of both the previously guessed root AND the actual root is used as a new approximation.
@@ -34,35 +38,48 @@ Quake's engine makes use of the IEE standard, which standardises how the long da
 
 Therefore, after some fiddling around with the calculator, I realised that for relatively small numbers(eg 1-100000), where D is the digit count of the integer, an initial guess G of G = N/2^(D-2) yielded some promising results for an initial guess. However, I quickly realised that with VERY large numbers, this fell off a little. After some consideration, I decided to go for G = N/2^D, as it seemed to be a little better. (logic being, that the smaller numbers would take less iterations of the function to arrive at a somewhat accurate answer) 
 
-*Wait a moment, isn't 2^D rather expensive and making use of the power operator? You lying rat* - You may ask
+*Wait a moment, isn't 2^D rather expensive and making use of the power operator?* - You may ask
+
 Well, yes, but actually no.
 
 You see, binary numbers have this neat little function about them, that allows for division of 2 easily and with virtually no computation cost.
+
 How is this done you might ask?
+
 Well, with the power of bitshifting.
+
 By shifting the bits of a binary number to the left, we half the number, and to the right, we double the number.
+
 Eg.
+
 1111 = 8 + 4 + 2 + 1 = 15
+
 111(a shift to the left) = 7
 
 1010 = 8 + 2 = 10
+
 101 = 4 + 1 = 5
 
 
 101110 = 46
+
 10111 = 23
 
 Cool huh?
+
 There is rounding with odd numbers, but we're willing to sacrifice this here.
 
 Thus, with the power of log10, we can arrive at a decently good initial guess with
+
 > initguess = x >> (int(math.log10(x)+1))
 
 Note: the >> operator represents a shift to the left in bits and the << to the right
+
 eg. 48 >> 2 would shift the binary form of the integer 48, 2 steps to the left, thereby halving it twice
 
 
 And that's about it really, specify the iterations and watch it go!
+
 PS: I have not thought of a way to come up with iteration counts for an accurate approximation...
 
 
