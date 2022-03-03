@@ -31,8 +31,7 @@ A few iterations of the function is than ran through, which *hopefully* produces
 ## The initial guess
 
 Here's where things get hard.
-Quake's engine makes use of the IEE standard, which standardises how the long data type in C works, for more info, check out the previously linked article, or [this]
-(https://www.youtube.com/watch?v=p8u_k2LIZyo) beautifully animated video on the matter at hand - it'll explain it much better than I can.
+Quake's engine makes use of the IEE standard, which standardises how the long data type in C works, for more info, check out the previously linked article, or [this](https://www.youtube.com/watch?v=p8u_k2LIZyo) beautifully animated video on the matter at hand - it'll explain it much better than I can.
 
 *Unfortunately*, we do not get the luxury of such data types in python easily -- and besides, I wanted to have some fun without introducing some complex methods.
 
